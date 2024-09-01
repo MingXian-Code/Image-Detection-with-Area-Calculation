@@ -8,6 +8,7 @@ This repository contains a Python script for detecting and classifying shapes in
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [How the Model Works](#how-the-model-works)
+- [CLI Guide](#cli-guide)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -15,7 +16,7 @@ This repository contains a Python script for detecting and classifying shapes in
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/MingXian-Code/detection-model.git
+    git clone https://github.com/yourusername/detection-model.git
     cd detection-model
     ```
 
@@ -37,7 +38,7 @@ This repository contains a Python script for detecting and classifying shapes in
 
 2. Run the script:
     ```sh
-    python Detection_model.py
+    python Detection_model.py --image data.jpg --altitude 150 --confidence 0.5 --max_area 20
     ```
 
 3. The script will load the image, process it, and classify the shapes found in the image.
@@ -48,7 +49,7 @@ This repository contains a Python script for detecting and classifying shapes in
 - **Confidence Threshold**: The confidence threshold for detection. Default is `0.5`.
 - **Maximum Area to Filter**: The maximum area in meters squared to filter out shapes. Default is `20`.
 
-These parameters can be adjusted directly in the `Detection_model.py` file.
+These parameters can be adjusted directly in the `Detection_model.py` file or passed as arguments from the CLI.
 
 ## 🧠 How the Model Works
 
@@ -59,14 +60,14 @@ These parameters can be adjusted directly in the `Detection_model.py` file.
 
 2. **Setting Parameters**: It sets various parameters such as altitude, confidence threshold, and maximum area to filter.
     ```python
-    altitude = 150  # Altitude in meters
-    confidence_threshold = 0.5  # Confidence threshold for detection
-    Maximum_area_to_filter = 20  # Maximum area in meters squared to filter out shapes
+    altitude = args.altitude
+    confidence_threshold = args.confidence
+    maximum_area_to_filter = args.max_area
     ```
 
 3. **Loading the Image**: The script loads an image from the specified path.
     ```python
-    image_path = 'data.jpg'
+    image_path = args.image
     image = cv2.imread(image_path)
     ```
 
@@ -97,17 +98,9 @@ These parameters can be adjusted directly in the `Detection_model.py` file.
         return shape
     ```
 
-## 🤝 Contributing
+## 🖥️ CLI Guide
 
-Contributions are welcome! Please open an issue or submit a pull request for any changes.
+To run the script from the command line, use the following command:
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature-branch`).
-6. Open a pull request.
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+```sh
+python Detection_model.py --image data.jpg --altitude 150 --confidence 0.5 --max_area 20
