@@ -7,7 +7,7 @@ from ultralytics import YOLO
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Detect and classify shapes in an image using YOLOv8.')
     parser.add_argument('--image', type=str, required=True, help='Path to the input image.')
-    parser.add_argument('--altitude', type=float, default=150, help='Altitude in meters at which the image was taken.')
+    parser.add_argument('--distance', type=float, default=150, help='Distance in meters at which the image was taken.')
     parser.add_argument('--confidence', type=float, default=0.5, help='Confidence threshold for detection.')
     parser.add_argument('--max_area', type=float, default=20, help='Maximum area in meters squared to filter out shapes.')
     return parser.parse_args()
@@ -37,10 +37,10 @@ def calculate_area(contour, shape):
     else:
         return 0
 
-def convert_area_to_meters(area_pixels, altitude, fov_horizontal, fov_vertical, image_width, image_height):
+def convert_area_to_meters(area_pixels, distance, fov_horizontal, fov_vertical, image_width, image_height):
     # Calculate the ground sampling distance (GSD) for both dimensions
-    gsd_x = (2 * altitude * np.tan(np.deg2rad(fov_horizontal / 2))) / image_width
-    gsd_y = (2 * altitude * np.tan(np.deg2rad(fov_vertical / 2))) / image_height
+    gsd_x = (2 * distance * np.tan(np.deg2rad(fov_horizontal / 2))) / image_width
+    gsd_y = (2 * distance * np.tan(np.deg2rad(fov_vertical / 2))) / image_height
     area_meters = area_pixels * (gsd_x * gsd_y)
     return area_meters
 
@@ -50,7 +50,7 @@ def main():
     # Load the YOLOv8 model
     model = YOLO('best.pt')
 
-    altitude = args.altitude
+    Distance = args.distance
     confidence_threshold = args.confidence
     maximum_area_to_filter = args.max_area
 
@@ -100,7 +100,7 @@ def main():
             contour = max(contours, key=cv2.contourArea)
             shape = classify_shape(contour)
             area_pixels = calculate_area(contour, shape)
-            area_meters = convert_area_to_meters(area_pixels, altitude, fov_horizontal, fov_vertical, image_width, image_height)
+            area_meters = convert_area_to_meters(area_pixels, Distance, fov_horizontal, fov_vertical, image_width, image_height)
             
             if area_meters > maximum_area_to_filter:
                 continue  # Skip shapes with area greater than x meters squared
@@ -138,13 +138,13 @@ def main():
     print(f"Total number of objects detected: {len(areas_pixels)}")
 
     # Save the image with bounding boxes, labels, and contours
-    output_image_path = os.path.join(results_dir, f'result_{altitude}m.jpg')
+    output_image_path = os.path.join(results_dir, f'result_{Distance}m.jpg')
     cv2.imwrite(output_image_path, image)
 
     # Save the results to a text file
     results_file_path = os.path.join(results_dir, 'results.txt')
     with open(results_file_path, 'w') as f:
-        f.write(f"At altitude {altitude} meters:\n")
+        f.write(f"At distance {Distance} meters:\n")
         f.write(f"Total area of detected shapes: {total_area_pixels} pixels²\n")
         f.write(f"Total area of detected shapes: {total_area_meters:.2f} meters²\n")
         f.write(f"Total number of objects detected: {len(areas_pixels)}\n")
