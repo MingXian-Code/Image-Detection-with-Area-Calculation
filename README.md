@@ -1,6 +1,6 @@
 # 📷 Detection Model
 
-This repository contains a Python script for detecting and classifying shapes in images using the YOLOv8 model. The script processes images to identify shapes and classify them based on their contours.
+This repository contains Python scripts for detecting and classifying shapes in images using the YOLOv8 model, as well as training the YOLOv8 model. The scripts process images to identify shapes and classify them based on their contours.
 
 ## 📋 Table of Contents
 
@@ -8,7 +8,7 @@ This repository contains a Python script for detecting and classifying shapes in
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [How the Model Works](#how-the-model-works)
-- [CLI Guide](#cli-guide)
+- [Training the Model](#training-the-model)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -16,7 +16,7 @@ This repository contains a Python script for detecting and classifying shapes in
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/detection-model.git
+    git clone https://github.com/MingXian-Code/detection-model.git
     cd detection-model
     ```
 
@@ -38,7 +38,7 @@ This repository contains a Python script for detecting and classifying shapes in
 
 2. Run the script:
     ```sh
-    python Detection_model.py --image data.jpg --altitude 150 --confidence 0.5 --max_area 20
+    python Detection_model.py
     ```
 
 3. The script will load the image, process it, and classify the shapes found in the image.
@@ -49,7 +49,7 @@ This repository contains a Python script for detecting and classifying shapes in
 - **Confidence Threshold**: The confidence threshold for detection. Default is `0.5`.
 - **Maximum Area to Filter**: The maximum area in meters squared to filter out shapes. Default is `20`.
 
-These parameters can be adjusted directly in the `Detection_model.py` file or passed as arguments from the CLI.
+These parameters can be adjusted directly in the `Detection_model.py` file.
 
 ## 🧠 How the Model Works
 
@@ -60,14 +60,14 @@ These parameters can be adjusted directly in the `Detection_model.py` file or pa
 
 2. **Setting Parameters**: It sets various parameters such as altitude, confidence threshold, and maximum area to filter.
     ```python
-    altitude = args.altitude
-    confidence_threshold = args.confidence
-    maximum_area_to_filter = args.max_area
+    altitude = 150  # Altitude in meters
+    confidence_threshold = 0.5  # Confidence threshold for detection
+    Maximum_area_to_filter = 20  # Maximum area in meters squared to filter out shapes
     ```
 
 3. **Loading the Image**: The script loads an image from the specified path.
     ```python
-    image_path = args.image
+    image_path = 'data.jpg'
     image = cv2.imread(image_path)
     ```
 
@@ -98,9 +98,57 @@ These parameters can be adjusted directly in the `Detection_model.py` file or pa
         return shape
     ```
 
-## 🖥️ CLI Guide
+## 🚀 Training the Model
 
-To run the script from the command line, use the following command:
+This repository also contains a script to train a YOLOv8 model using the `ultralytics` library. The script allows you to specify various parameters such as the model file, data configuration, number of epochs, device, and batch size.
+
+### Requirements
+
+- Python 3.x
+- `ultralytics` library
+- `argparse` library (standard with Python)
+
+### Installation
+
+1. Clone the repository:
+    ```sh
+    git clone  https://github.com/MingXian-Code/Model_training_local_machine.git
+    cd detection-model
+    ```
+
+2. Install the required libraries:
+    ```sh
+    pip install ultralytics
+    ```
+
+### Usage
+
+To train the YOLOv8 model, run the `Model_training_local_machine.py` script with the appropriate arguments.
+
+#### Arguments
+
+- `--model`: Path to the YOLO model file (default: `yolov8l.pt`).
+- `--data`: Path to the data configuration file (required).
+- `--epochs`: Number of training epochs (default: `100`).
+- `--device`: Device to use for training (e.g., `"0"` for GPU, `"cpu"` for CPU) (default: `"0"`) (Make sure your GPU is CUDA capable).
+- `--batch`: Batch size for training (default: `4`).
+
+#### Example
 
 ```sh
-python Detection_model.py --image data.jpg --altitude 150 --confidence 0.5 --max_area 20
+python Model_training_local_machine.py --data path/to/data.yaml --epochs 50 --device 0 --batch 8
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any changes.
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a pull request.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
