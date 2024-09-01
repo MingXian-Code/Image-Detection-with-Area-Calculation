@@ -45,7 +45,7 @@ This repository contains Python scripts for detecting and classifying shapes in 
 
 ## ⚙️ Configuration
 
-- **Altitude**: The altitude in meters at which the image was taken. Default is `150`.
+- **Distance**: The distance in meters at which the image was taken. Default is `150`.
 - **Confidence Threshold**: The confidence threshold for detection. Default is `0.5`.
 - **Maximum Area to Filter**: The maximum area in meters squared to filter out shapes. Default is `20`.
 
@@ -58,9 +58,9 @@ These parameters can be adjusted directly in the `Detection_model.py` file.
     model = YOLO('best.pt')
     ```
 
-2. **Setting Parameters**: It sets various parameters such as altitude, confidence threshold, and maximum area to filter.
+2. **Setting Parameters**: It sets various parameters such as distance, confidence threshold, and maximum area to filter.
     ```python
-    altitude = 150  # Altitude in meters
+    distance = 150  # distance in meters
     confidence_threshold = 0.5  # Confidence threshold for detection
     Maximum_area_to_filter = 20  # Maximum area in meters squared to filter out shapes
     ```
