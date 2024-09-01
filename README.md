@@ -16,7 +16,7 @@ This repository contains Python scripts for detecting and classifying shapes in 
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/MingXian-Code/detection-model.git
+    git clone https://github.com/MingXian-Code/Image-Detection-with-Area-Calculation.git
     cd detection-model
     ```
 
