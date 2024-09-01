@@ -113,7 +113,7 @@ This repository also contains a script to train a YOLOv8 model using the `ultral
 1. Clone the repository:
     ```sh
     git clone  https://github.com/MingXian-Code/Model_training_local_machine.git
-    cd detection-model
+    cd training
     ```
 
 2. Install the required libraries:
