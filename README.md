@@ -137,6 +137,7 @@ To train the YOLOv8 model, run the `Model_training_local_machine.py` script with
 
 ```sh
 python Model_training_local_machine.py --data path/to/data.yaml --epochs 50 --device 0 --batch 8
+```
 
 ## 🤝 Contributing
 
